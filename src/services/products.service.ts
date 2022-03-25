@@ -1,6 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Product } from 'src/entities/product.entity';
-import { threadId } from 'worker_threads';
 
 @Injectable()
 export class ProductsService {
@@ -22,7 +21,11 @@ export class ProductsService {
   }
 
   findOne(id: number) {
-    return this.products.find((item) => item.id === id);
+    const product = this.products.find((item) => item.id === id);
+    if (!product) {
+      throw new NotFoundException(`Product #${id} not found`); 
+    }
+    return product;
   }
 
   create(payload: any) {
@@ -48,9 +51,12 @@ export class ProductsService {
     return null;
   }
 
-  delete(payload: any) {
-    let positionProduct = this.products.findIndex(p => p.id == payload.id);
-    this.products.splice(positionProduct,1)
-    return positionProduct;
+  delete(id: number) {
+    const indexProduct = this.products.findIndex((product) => product.id == id);
+    if (indexProduct === -1){
+      throw new NotFoundException(`Product #${id} not found`); 
+    }
+    this.products.splice(indexProduct,1)
+    return true;
   }
 }

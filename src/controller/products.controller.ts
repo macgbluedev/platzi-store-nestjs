@@ -48,10 +48,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  deleteOne(@Param('id') id: number, @Body() payload: any) {
-    return {
-      id,
-      payload,
-    };
+  deleteOne(@Param('id') id: number) {
+    return this.productService.delete(+id)
   }
 }
