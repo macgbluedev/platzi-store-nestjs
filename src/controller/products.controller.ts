@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, HttpStatus, HttpCode, Res } from '@nestjs/common';
+import { Response } from 'express'
 @Controller('products')
 export class ProductsController {
   @Get('')
@@ -16,9 +16,16 @@ export class ProductsController {
     return `I'm a filter`;
   }
 
-  @Get('products/:productId')
-  getOne(@Param('productId') productId: string) {
-    return `product ${productId}`;
+  @Get(':productId')
+  @HttpCode(HttpStatus.ACCEPTED)
+  getOne(@Res() response: Response, @Param('productId') productId: string) {
+    response.status(200).send({
+        message: 'Product information',
+    });
+    // return { 
+    //     message: 'Product information',
+    //     productId,
+    //   };
   }
 
   @Post()
