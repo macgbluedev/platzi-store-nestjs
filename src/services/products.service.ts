@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateProductDto } from 'src/dtos/products.dtos';
 import { Product } from 'src/entities/product.entity';
 
 @Injectable()
@@ -28,7 +29,7 @@ export class ProductsService {
     return product;
   }
 
-  create(payload: any) {
+  create(payload: CreateProductDto) {
     this.counterId += 1;
     const newProduct: Product = {
       id: this.counterId,
