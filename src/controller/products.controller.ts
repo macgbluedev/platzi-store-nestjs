@@ -18,14 +18,11 @@ export class ProductsController {
 
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
-  getOne(@Res() response: Response, @Param('productId') productId: string) {
-    response.status(200).send({
+  getOne(@Param('productId') productId: string) {
+    return { 
         message: 'Product information',
-    });
-    // return { 
-    //     message: 'Product information',
-    //     productId,
-    //   };
+        productId,
+      };
   }
 
   @Post()
