@@ -24,7 +24,7 @@ export class ProductsController {
   constructor(private productService: ProductsService) {}
 
   @Get('')
-  @ApiOperation( {summary: 'List of products'})
+  @ApiOperation({ summary: 'List of products' })
   GetAll(
     @Query('brand') brand: number,
     @Query('limit') limit = 100,
