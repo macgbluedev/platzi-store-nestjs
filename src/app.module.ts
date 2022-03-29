@@ -11,6 +11,7 @@ import { firstValueFrom } from 'rxjs';
 import { DatabaseModule } from './database/database.module';
 
 import { enviroments } from '../enviroments';
+import { AuthModule } from './auth/auth.module';
 import config from 'config';
 
 
@@ -36,6 +37,7 @@ import config from 'config';
     ProductsModule,
     HttpModule,
     DatabaseModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
