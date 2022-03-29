@@ -1,14 +1,18 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { SetMetadata } from '@nestjs/common';
 import { AppService } from './app.service';
 
-import {ApiKeyGuard } from './auth/guards/api-key.guard'
+import { ApiKeyGuard } from './auth/guards/api-key.guard';
+import { Public } from './auth/decorator/public.decorator'
 
+@UseGuards(ApiKeyGuard)
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @UseGuards(ApiKeyGuard)
+  //@SetMetadata('isPublic', true)
   @Get()
+  @Public()
   getHello(): string {
     return this.appService.getHello();
   }
