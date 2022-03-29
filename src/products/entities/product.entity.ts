@@ -1,22 +1,40 @@
-import { Column, PrimaryGeneratedColumn, Entity } from "typeorm";
+import {
+  Column,
+  PrimaryGeneratedColumn,
+  Entity,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({type: 'varchar', length: 255, unique: true})
+  @Column({ type: 'varchar', length: 255, unique: true })
   name: string;
 
-  @Column({type: 'text'})
+  @Column({ type: 'text' })
   description: string;
 
-  @Column({type: 'int'})
+  @Column({ type: 'int' })
   price: number;
 
-  @Column({type: 'int'})
+  @Column({ type: 'int' })
   stock: number;
 
-  @Column({type: 'varchar'})
+  @Column({ type: 'varchar' })
   image: string;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updateAt: Date;
 }
